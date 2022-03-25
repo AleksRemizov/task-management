@@ -37,10 +37,13 @@ public class Task {
     private Integer status;
 
     @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @OrderBy("start_date")
-    private Set<Element> elements;
+    private Set<Element> elements = new HashSet<>();
 
     public Task(){
+    }
+
+    public Task(String name) {
+        this.name = name;
     }
 
     public Task(String name, String password, String description, LocalDate startDate, LocalDate endDate,
@@ -120,15 +123,7 @@ public class Task {
         return elements;
     }
 
-    public void addElement(Element element){
-        if(elements == null){
-            elements = new HashSet<>();
-            elements.add(element);
-        }
-    }
-
-    public Task setElements(Set<Element> elements) {
-        this.elements = elements;
-        return this;
+    public void setElement(Element element) {
+        elements.add(element);
     }
 }

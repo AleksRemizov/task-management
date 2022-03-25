@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Element {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "task_id")
+    @Column(name = "element_id")
     private Integer id;
 
     private String name;
@@ -22,7 +22,7 @@ public class Element {
     private String value;
 
     @ManyToOne
-    @JoinColumn(name = "task_task_id",nullable = false)
+    @JoinColumn(name = "task_id")
     private Task task;
 
     public Task getTask() {
@@ -32,10 +32,11 @@ public class Element {
     public Element(){
     }
 
-    public Element(String name, String description, String value) {
+    public Element(String name, String description, String value, Task task) {
         this.name = name;
         this.description = description;
         this.value = value;
+        this.task = task;
     }
 
     public Integer getId() {
