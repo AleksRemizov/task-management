@@ -5,6 +5,7 @@ import com.remizov.brest.entity.Element;
 import com.remizov.brest.entity.Task;
 //import com.remizov.brest.entity.projection.ElementView;
 //import com.remizov.brest.entity.projection.TaskVieW;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -34,8 +35,13 @@ public interface ElementRepository extends CrudRepository<Element,Integer> {
      * Update  {@link Element}to the data store.
      * @return the {@link Element} updated .
      */
-
-    //Element update(Integer id,Element element);
+//    @Modifying
+//    @Query("update Customer u set u.phone = :phone where u.id = :id")
+//    @Query("update SomeEntity e\n" +
+//            "set e.field1 = case when :val1 is not null then :val1 else e.field1 end,\n" +
+//            "    e.field2 = case when :val2 is not null then :val2 else e.field2 end,\n" +
+//            "    e.field3 = case when :val3 is not null then :val3 else e.field3 end;")
+//    Element update(Integer id,Element element);
 
     /**
      * Retrieve all {@link Element}s from the data store.
@@ -57,6 +63,6 @@ public interface ElementRepository extends CrudRepository<Element,Integer> {
      * @return a Collection of {@link Element}s.
      */
 
-     //@Query(value = "select e from Element e where e.task_id = :id")
-     List<Element> findByTask(@Param("task_id") Integer taskId);
+     //@Query(value = "select e from Element e join fetch where e.task_id = :id")
+     List<Element> findByTask(@Param("id") Integer taskId);
 }

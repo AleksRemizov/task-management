@@ -44,7 +44,6 @@ class ElementRepositoryTest {
 
         testedElement = new Element("el1","some descr1","value1",testedTask);
 
-
     }
 
     @Test
