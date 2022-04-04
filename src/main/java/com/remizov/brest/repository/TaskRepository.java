@@ -1,30 +1,19 @@
 package com.remizov.brest.repository;
 
 
-import com.remizov.brest.entity.Element;
 import com.remizov.brest.entity.Task;
-//import com.remizov.brest.entity.projection.TaskVieW;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 //@RepositoryRestResource(excerptProjection = TaskVieW.class)
 public interface TaskRepository extends CrudRepository<Task,Integer> {
 
     /**
-     * Save an {@link Task} to the data store, either inserting or updating it.
+     * Save , Update   an {@link Task} to the data store, either inserting or updating it.
      *
      * @param task the {@link Task} to save,update or either inserting or updating it.
      * @return the {@link Task} saved
@@ -37,25 +26,6 @@ public interface TaskRepository extends CrudRepository<Task,Integer> {
      * @param id the {@link Task} to delete
      */
      void deleteById(Integer id);
-
-    /**
-     * Update  {@link Task}to the data store.
-     */
-//    @Modifying
-//    @Query(value = "update task \n" +
-//            "set name = case when :name is not null then :name else name end,\n" +
-//            "    password = case when :password is not null then :password else password end,\n" +
-//            "    description = case when :description is not null then :description else description end, \n" +
-//            "    start_date = case when :start_date is not null then :start_date else start_date end, \n" +
-//            "    end_date = case when :end_date is not null then :end_date else end_date end, \n" +
-//            "    status = case when :status is not null then :status else status end \n" +
-//            " where task_id in :id",nativeQuery = true)
-//    Integer update(@Param("id")Integer id, @Param("name")String name,
-//                                        @Param("password")String password,
-//                                        @Param("description")String description,
-//                                        @Param("start_date")LocalDate startDate,
-//                                        @Param("end_date")LocalDate endDate,
-//                                        @Param("status")Integer status);
 
     /**
      * Retrieve all {@link Task}s from the data store.

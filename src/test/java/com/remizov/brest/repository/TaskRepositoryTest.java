@@ -92,25 +92,29 @@ class TaskRepositoryTest {
         assertFalse(taskRepository.existsById(savedTask.getId()));
     }
 
-//    @Test
-//    void shouldUpdateTask(){
-//        log.debug("shouldUpdateTask()");
-//        Task beforeUpdate = taskRepository.findAll().get(0);
-//        assertNotNull(beforeUpdate);
-//
-//        Integer value = taskRepository.update(beforeUpdate.getId(),
-//                              testedTask.getName(),
-//                              beforeUpdate.getPassword(),
-//                              testedTask.getDescription(),
-//                              beforeUpdate.getStartDate(),
-//                              beforeUpdate.getEndDate(),
-//                              testedTask.getStatus());
-//
-//        Task updated = taskRepository.findById(beforeUpdate.getId()).get();
-//
-//        assertEquals(testedTask.getName(),updated.getName());
-//
-//    }
+    @Test
+    void shouldUpdateTask(){
+        log.debug("shouldUpdateTask()");
+
+        Task beforeUpdate = taskRepository.findAll().get(0);
+        assertEquals(2,taskRepository.findAll().size());
+
+        beforeUpdate.setPassword(testedTask.getPassword());
+        beforeUpdate.setName(testedTask.getName());
+        beforeUpdate.setDescription("shouldPossibleUpdate");
+
+        Task updatedTask = taskRepository.save(beforeUpdate);
+
+
+        assertEquals(2,taskRepository.findAll().size());
+        assertEquals(beforeUpdate.getId(),updatedTask.getId());
+        assertEquals(testedTask.getName(),updatedTask.getName());
+        assertEquals(testedTask.getPassword(),updatedTask.getPassword());
+        assertEquals("shouldPossibleUpdate",updatedTask.getDescription());
+
+
+
+    }
     @Test
     void shouldFindAll() {
         log.debug("shouldFindAll()");
@@ -159,7 +163,9 @@ class TaskRepositoryTest {
     void shouldFindByStartDateGreaterThanEqualAndEndDateLessThanEqual(){
         log.debug("shouldFindByStartDateGreaterThanEqualAndEndDateLessThanEqual()");
         LocalDate startDate = LocalDate.of(2022,12,12);
-        LocalDate endDate = LocalDate.of(2025,12,13);
+        LocalDate endDate = LocalDate.of(2023,12,13);
+
+        assertEquals(2,taskRepository.findAll().size());
 
         assertEquals(1,
                 taskRepository.
@@ -173,6 +179,24 @@ class TaskRepositoryTest {
                         searchBetweenDates(
                                 startDate
                                 ,endDate).size());
+
+        assertEquals(0,
+                taskRepository.
+                        searchBetweenDates(
+                                startDate.plusDays(1)
+                                ,endDate).size());
+
+        assertEquals(1,
+                taskRepository.
+                        searchBetweenDates(
+                                LocalDate.of(2021,12,12)
+                                ,startDate).size());
+
+        assertEquals(0,
+                taskRepository.
+                        searchBetweenDates(
+                                LocalDate.of(2021,12,12)
+                                ,startDate.minusDays(1)).size());
 
     }
 }
