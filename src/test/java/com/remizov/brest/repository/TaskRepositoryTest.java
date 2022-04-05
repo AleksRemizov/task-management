@@ -111,10 +111,8 @@ class TaskRepositoryTest {
         assertEquals(testedTask.getName(),updatedTask.getName());
         assertEquals(testedTask.getPassword(),updatedTask.getPassword());
         assertEquals("shouldPossibleUpdate",updatedTask.getDescription());
-
-
-
     }
+
     @Test
     void shouldFindAll() {
         log.debug("shouldFindAll()");

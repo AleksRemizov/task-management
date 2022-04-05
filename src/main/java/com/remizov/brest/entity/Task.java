@@ -1,5 +1,6 @@
 package com.remizov.brest.entity;
 
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -36,7 +37,8 @@ public class Task {
 
     private Integer status;
 
-    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @RestResource(exported = false)
+    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Element> elements = new HashSet<>();
 
     public Task(){
@@ -117,6 +119,15 @@ public class Task {
     public Task setStatus(Integer status) {
         this.status = status;
         return this;
+    }
+    public void addElement(Element element) {
+        this.elements.add(element);
+        element.setTask(this);
+    }
+
+    public void removeElement(Element element) {
+        this.elements.remove(element);
+        element.setTask(this);
     }
 
     public Set<Element> getElements() {

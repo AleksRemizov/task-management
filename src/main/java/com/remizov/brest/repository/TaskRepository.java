@@ -1,6 +1,7 @@
 package com.remizov.brest.repository;
 
 
+import com.remizov.brest.entity.Element;
 import com.remizov.brest.entity.Task;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -26,6 +27,12 @@ public interface TaskRepository extends CrudRepository<Task,Integer> {
      * @param id the {@link Task} to delete
      */
      void deleteById(Integer id);
+
+    /**
+     * Update  {@link Task}to the data store.
+     * @return the {@link Task} updated .
+     */
+     //Task update(Task task);
 
     /**
      * Retrieve all {@link Task}s from the data store.

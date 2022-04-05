@@ -25,10 +25,6 @@ public class Element {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public Task getTask() {
-        return task;
-    }
-
     public Element(){
     }
 
@@ -74,5 +70,12 @@ public class Element {
         this.value = value;
         return this;
     }
+    public Task getTask() {
+        return task;
+    }
 
+    public Element setTask(Task task) {
+        this.task = task;
+        return this;
+    }
 }
