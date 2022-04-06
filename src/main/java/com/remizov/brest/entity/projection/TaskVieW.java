@@ -1,5 +1,6 @@
 package com.remizov.brest.entity.projection;
 
+import com.remizov.brest.entity.Element;
 import com.remizov.brest.entity.Task;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
@@ -13,14 +14,13 @@ import java.time.LocalDate;
  */
 
 
-//@Projection(name = "taskView",types = {Task.class})
-//public interface TaskVieW {
-//
-//    String getName();
-//    String getDescription();
-//    LocalDate getStartDate();
-//    LocalDate getEndDate();
-//    Integer getStatus();
-//    @Value("#{target.getElements().size()}")
-//    Integer getElementsCount();
-//}
+@Projection(name = "taskView",types = Task.class)
+public interface TaskVieW {
+
+    String getName();
+    String getDescription();
+    LocalDate getStartDate();
+    LocalDate getEndDate();
+    Integer getStatus();
+
+}

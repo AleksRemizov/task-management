@@ -1,5 +1,6 @@
 package com.remizov.brest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +24,7 @@ public class Task {
 
     private String name;
 
+    @JsonIgnore
     private String password;
 
     private String description;

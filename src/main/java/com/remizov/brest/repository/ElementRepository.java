@@ -3,14 +3,16 @@ package com.remizov.brest.repository;
 
 import com.remizov.brest.entity.Element;
 import com.remizov.brest.entity.Task;
+import com.remizov.brest.entity.projection.ElementView;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-//@RepositoryRestResource(excerptProjection = ElementView.class)
+@RepositoryRestResource(excerptProjection = ElementView.class)
 public interface ElementRepository extends CrudRepository<Element,Integer> {
 
     /**

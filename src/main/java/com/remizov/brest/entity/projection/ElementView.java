@@ -10,13 +10,13 @@ import org.springframework.data.rest.core.config.Projection;
  *
  * @author Alex Remizov
  */
-//@Projection(name = "elementView",types = {Element.class})
-//public interface ElementView {
-//
-//    @Value("#{target.id}")
-//    Integer getId();
-//
-//    String getName();
-//    String getDescription();
-//    String getValue();
-//}
+@Projection(name = "elementView",types = Element.class)
+public interface ElementView {
+
+    @Value("#{target.id}")
+    Integer getId();
+
+    String getName();
+    String getDescription();
+    String getValue();
+}
