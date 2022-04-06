@@ -1,5 +1,7 @@
 package com.remizov.brest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -22,6 +24,7 @@ public class Task {
 
     private String name;
 
+    @JsonIgnore
     private String password;
 
     private String description;
@@ -36,11 +39,15 @@ public class Task {
 
     private Integer status;
 
-    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @OrderBy("start_date")
-    private Set<Element> elements;
+    @RestResource(exported = false)
+    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Element> elements = new HashSet<>();
 
     public Task(){
+    }
+
+    public Task(String name) {
+        this.name = name;
     }
 
     public Task(String name, String password, String description, LocalDate startDate, LocalDate endDate,
@@ -115,20 +122,21 @@ public class Task {
         this.status = status;
         return this;
     }
+    public void addElement(Element element) {
+        this.elements.add(element);
+        element.setTask(this);
+    }
+
+    public void removeElement(Element element) {
+        this.elements.remove(element);
+        element.setTask(this);
+    }
 
     public Set<Element> getElements() {
         return elements;
     }
 
-    public void addElement(Element element){
-        if(elements == null){
-            elements = new HashSet<>();
-            elements.add(element);
-        }
-    }
-
-    public Task setElements(Set<Element> elements) {
-        this.elements = elements;
-        return this;
+    public void setElement(Element element) {
+        elements.add(element);
     }
 }
