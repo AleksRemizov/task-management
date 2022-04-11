@@ -1,6 +1,8 @@
 package com.remizov.brest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,19 +15,22 @@ import java.util.*;
  *
  * @author Alex Remizov
  */
-
+@ApiModel(description = "Class representing a task in the application.")
 @Entity
 @Table(name = "task")
+@Schema(name="Task", description = "Task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     private Integer id;
 
+    @Schema(name = "Name", description = "name of the client")
     private String name;
 
     @JsonIgnore
     private String password;
+
 
     private String description;
 
@@ -43,7 +48,7 @@ public class Task {
     @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Element> elements = new HashSet<>();
 
-    public Task(){
+    protected Task(){
     }
 
     public Task(String name) {

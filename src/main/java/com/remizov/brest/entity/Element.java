@@ -1,14 +1,18 @@
 package com.remizov.brest.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 /**
  * Simple JavaBean domain object representing an element.
  *
  * @author Alex Remizov
  */
-
+@ApiModel(description = "Class representing a task's element in the application.")
 @Entity
 @Table(name = "element")
+@Schema(name="Element", description = "Element")
 public class Element {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +29,7 @@ public class Element {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public Element(){
+    protected Element(){
     }
 
     public Element(String name, String description, String value, Task task) {
