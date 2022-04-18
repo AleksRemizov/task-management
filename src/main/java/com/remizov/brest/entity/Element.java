@@ -1,6 +1,12 @@
 package com.remizov.brest.entity;
 
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 /**
  * Simple JavaBean domain object representing an element.
  *
@@ -9,23 +15,30 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "element")
+@Api(value = "Class representing a task's element in the application")
 public class Element {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "element_id")
     private Integer id;
 
+
+
+    @Schema(name = "trackName", description = "name of track", example = "New name")
+    @NotBlank(message = "Name should not be empty")
     private String name;
 
+    @Size(min = 0, max = 1000, message = "Element description must be between {min} and {max} characters.")
     private String description;
 
+    @NotBlank(message = "Please provide status")
     private String value;
 
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public Element(){
+    protected Element(){
     }
 
     public Element(String name, String description, String value, Task task) {

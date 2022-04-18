@@ -1,10 +1,13 @@
 package com.remizov.brest.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -13,37 +16,47 @@ import java.util.*;
  *
  * @author Alex Remizov
  */
-
 @Entity
 @Table(name = "task")
+@Schema(name="Task", description = "Class representing a task in the application.")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     private Integer id;
 
+    @Schema(name = "Name", description = "name of the client")
+    @NotBlank(message = "Name should not be empty")
     private String name;
 
     @JsonIgnore
     private String password;
 
+    @Size(min = 0, max = 1000, message = "Task description must be between {min} and {max} characters.")
     private String description;
 
+    @NotNull
     @Column(name = "start_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
+
+    @NotNull
     @Column(name = "end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @FutureOrPresent(message = "Incorrect value. Date can not be future")
     private LocalDate endDate;
 
+    @NotNull(message = "Please provide status")
     private Integer status;
 
     @RestResource(exported = false)
     @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Element> elements = new HashSet<>();
 
-    public Task(){
+    protected Task(){
     }
 
     public Task(String name) {

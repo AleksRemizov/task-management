@@ -19,14 +19,16 @@
 
 	<properties>
 		<java.version>11</java.version>
-
 		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 		<spring-boot-maven-plugin.version>2.6.4</spring-boot-maven-plugin.version>
+		<springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
+		<springfox-swagger-ui.version>3.0.0</springfox-swagger-ui.version>
+		<springfox-bean-validators.version>3.0.0</springfox-bean-validators.version>
+		<hibernate-validator.version>7.0.4.Final</hibernate-validator.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
 		<junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
 		<junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
-
 	</properties>
 
 	<dependencies>
@@ -47,6 +49,26 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>${springfox-boot-starter.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger-ui.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-bean-validators</artifactId>
+			<version>${springfox-bean-validators.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
