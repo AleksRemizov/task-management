@@ -1,10 +1,8 @@
 package com.remizov.brest.repository;
 
 
-import com.remizov.brest.entity.Element;
 import com.remizov.brest.entity.Task;
 import com.remizov.brest.entity.projection.TaskVieW;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +14,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface TaskRepository extends CrudRepository<Task,Integer> {
                     @ApiResponse(description = "Successfully saved",
                             content = @Content(schema = @Schema(implementation = Task.class))),
                     @ApiResponse(responseCode = "400", description = "Invalid task")})
-    Task save(Task task);
+    Task save(@Valid Task task);
 
     /**
      * Delete an {@link Task} to the data store.
@@ -52,6 +51,7 @@ public interface TaskRepository extends CrudRepository<Task,Integer> {
      * Retrieve all {@link Task}s from the data store.
      * @return a Collection of {@link Task}s.
      */
+    @ApiOperation("Find all tasks ")
     List<Task> findAll();
 
     /**
@@ -75,7 +75,7 @@ public interface TaskRepository extends CrudRepository<Task,Integer> {
      * @return a Collection of {@link Task}s.
      */
     @ApiOperation("Find tasks that have startDate is greater than or equal\n" +
-            "     * to the specified startDate and end date is less than or equal to the specified endDate")
+            "      to the specified startDate and end date is less than or equal to the specified endDate")
     @Query (value = "select * from task where start_date >= :start and end_date <= :end ", nativeQuery = true)
      List<Task> searchBetweenDates(@Param("start") LocalDate startDate, @Param("end") LocalDate endDate);
 

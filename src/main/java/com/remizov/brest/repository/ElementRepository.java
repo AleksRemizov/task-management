@@ -11,9 +11,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
-
+@Validated
 @Tag(name = "Element", description = "The Element API")
 @RepositoryRestResource(excerptProjection = ElementView.class)
 public interface ElementRepository extends CrudRepository<Element,Integer> {
@@ -24,7 +26,7 @@ public interface ElementRepository extends CrudRepository<Element,Integer> {
      * @return the {@link Element} if found
      */
     @ApiOperation("Save element")
-    Element save(Element element);
+    Element save(@Valid Element element);
 
     /**
      * Delete an {@link Element} to the data store.
